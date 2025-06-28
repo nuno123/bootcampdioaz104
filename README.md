@@ -67,7 +67,8 @@ Bash
 
 sudo mkfs -t ext4 /dev/sda 
 
-Em seguida, o disco é montado no diretório 
+Em seguida, o disco é montado no diretório
+
 ![image](https://github.com/user-attachments/assets/ec620205-9d2d-4c99-acfe-e7290edbb731)
 
 
