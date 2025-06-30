@@ -1,1 +1,92 @@
 
+Gerenciamento de VM – Azure Monitor e Alertas
+Este documento demonstra como utilizar o Azure Monitor em uma VM Linux para gerar alertas de e-mail quando a VM é excluída.
+
+1. Selecionando a VM para Monitoramento
+Primeiramente, selecione a máquina virtual para a qual você deseja configurar os alertas. Para este exemplo, criamos uma VM Linux para realizar os testes.
+
+
+
+2. Ativando o Agente do Azure Monitor
+Para começar a coletar dados da VM, é necessário ativar o agente do Azure Monitor. Siga os passos abaixo:
+
+Navegue até a sua VM no portal do Azure.
+
+No painel esquerdo, em Monitoramento, clique em Insights.
+
+Selecione Habilitar.
+
+Ao realizar esse processo, o Azure criará um Log Analytics Workspace. Este workspace armazenará as métricas e logs, permitindo que você faça consultas usando KQL (Kusto Query Language) e monitore o recurso de forma eficaz.
+
+3. Criando uma Regra de Alerta para Exclusão da VM
+Agora, vamos configurar uma regra de alerta para ser notificado por e-mail quando a VM for excluída.
+
+No portal do Azure, procure por Monitor e clique em Alertas.
+
+Clique em Criar e depois em Regra de alerta.
+
+Na seção Escopo, selecione sua assinatura e o recurso (sua VM). Clique em Próximo: Condição.
+
+Na seção Condição, clique em Adicionar condição.
+
+Em Tipo de sinal, selecione Logs de Atividade.
+
+Na caixa de pesquisa, digite Delete Virtual Machine e selecione o evento correspondente. Isso configurará o alerta para disparar quando houver uma operação de exclusão de VM. Clique em Concluído.
+
+Clique em Próximo: Ações.
+
+4. Criando um Grupo de Ações (Action Group)
+Um Action Group define quem deve ser notificado e como, quando um alerta é disparado.
+
+Na seção Ações, clique em Criar grupo de ações.
+
+Na guia Noções básicas:
+
+Preencha o Nome do grupo de ações (por exemplo, NotificacaoExclusaoVM).
+
+Preencha o Nome de exibição (será o nome exibido no e-mail de notificação).
+
+Selecione o Grupo de recursos onde o Action Group será criado.
+
+Na guia Notificações:
+
+Em Tipo de notificação, selecione Email/SMS/Push/Voz.
+
+Preencha o Nome da notificação.
+
+Em Email, insira o endereço de e-mail para onde o alerta deve ser enviado.
+
+Clique em Revisar + criar e depois em Criar.
+
+5. Associando o Action Group à Regra de Alerta
+Após criar o Action Group, você retornará à tela de criação da regra de alerta.
+
+Na seção Ações, em Grupos de ações, selecione o Action Group que você acabou de criar.
+
+Clique em Próximo: Detalhes.
+
+Na seção Detalhes:
+
+Preencha o Nome da regra de alerta (por exemplo, AlertaDelecaoVM).
+
+Escolha a Severidade do alerta.
+
+Marque a opção Habilitar regra de alerta na criação.
+
+Clique em Revisar + criar e depois em Criar.
+
+6. Testando o Alerta: Excluindo a VM
+Agora, vamos testar se o alerta será enviado conforme o esperado.
+
+Navegue até a sua VM no portal do Azure.
+
+Clique em Excluir e confirme a exclusão da VM.
+
+Confirmação e Verificação do Alerta
+Ao cadastrar o alerta, uma confirmação será enviada para o e-mail que você configurou no Azure Monitor Action Group.
+
+Como podemos ver na imagem abaixo, o alerta chegou no e-mail conforme o esperado, notificando sobre a exclusão da VM:
+
+Visualizando Alertas no Azure Monitor
+Você pode verificar todos os alertas enviados acessando a seção Monitor > Alertas no portal do Azure. Lá, você terá uma visão geral de todos os alertas disparados, seu status e detalhes.
+
